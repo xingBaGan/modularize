@@ -25,6 +25,8 @@
  */
 function isObject(value) {
   var type = typeof value;
+  //https://blog.51cto.com/u_15069472/4081506  null 全为零，typeof 判断类型
+  //js 中一切皆对象
   return value != null && (type == 'object' || type == 'function');
 }
 
