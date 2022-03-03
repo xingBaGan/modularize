@@ -5,7 +5,8 @@
   "main": "_DataView.js",
   "scripts": {
     "test": "jest",
-    "transform": "./node_modules/.bin/babel src --out-dir lib"
+    "transform": "./node_modules/.bin/babel src --out-dir lib",
+    "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman"
   },
   "keywords": [],
   "author": "",

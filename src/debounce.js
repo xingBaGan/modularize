@@ -1,5 +1,12 @@
 const FUNC_ERROR_TEXT = 'Expected a function';
-function debounce(func, wait, options) {
+/**
+ * 
+ * @param {function} func 需要控制的事件
+ * @param {Number} wait 流逝时间
+ * @param {Boolean} leading 是否一开始就执行
+ * @returns 经过控制的函数
+ */
+function debounce(func, wait, leading = false) {
     let timer;
     return () => {
         if (typeof func !== 'function') {

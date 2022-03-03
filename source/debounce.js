@@ -72,6 +72,7 @@ var nativeMax = Math.max,
  * jQuery(window).on('popstate', debounced.cancel);
  */
 function debounce(func, wait, options) {
+  // 默认初始值【兼容版】,默认值可以直接写上面
   var lastArgs,
       lastThis,
       maxWait,
@@ -86,6 +87,7 @@ function debounce(func, wait, options) {
   if (typeof func != 'function') {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
+  //读取默认值
   wait = toNumber(wait) || 0;
   if (isObject(options)) {
     leading = !!options.leading;
@@ -170,7 +172,7 @@ function debounce(func, wait, options) {
   function debounced() {
     var time = now(),
         isInvoking = shouldInvoke(time);
-
+    // 获取事件返回的参数
     lastArgs = arguments;
     lastThis = this;
     lastCallTime = time;

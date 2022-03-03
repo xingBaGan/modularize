@@ -8,7 +8,13 @@ test('debounce once',async () => {
         '  <span id="count">0</span>' +
         '  <button id="button" />' +
         '</div>';
-    let handler = debounce(() => { $('#count').text(Number($('#count').text()) + 1) }, 1000)
+    let handler = debounce(() => { 
+        $('#count').text(Number($('#count').text()) + 1) 
+        // console.log('参数'+JSON.stringify(Array.from(arguments)))
+    //    for(let i=0;i<arguments.length;i++){
+    //         console.log('参数'+JSON.stringify(arguments[i]),null,4)
+    //    }
+    }, 1000)
     $('#button').on('click', handler)
     for (let i = 0; i < 10; i++) {
         $('#button').click();
@@ -16,8 +22,8 @@ test('debounce once',async () => {
     await sleep(1000)
     expect($('#count').text()).toEqual('1');
 })
-
-test('debounce three',async () => {
+//测试必需时间过了才触发事件
+test.skip('debounce check must time gone',async () => {
     document.body.innerHTML =
         '<div>' +
         '  <span id="count">0</span>' +
@@ -35,4 +41,16 @@ test('debounce three',async () => {
     await sleep(1000)
     expect($('#count').text()).toEqual(String(i+1));
    }
+})
+// 参数类型必须为function
+test.skip('debounce args be must FUNC',async () => {
+    expect(
+        debounce('test', 2000)
+    ).toThrow(TypeError);
+})
+
+test('debounce args be must FUNC',async () => {
+    expect(
+        debounce('test', 2000)
+    ).toThrow(TypeError);
 })

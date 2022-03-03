@@ -2,7 +2,7 @@
 
 jest.mock('../src/fetchCurrentUser');
 
-test('displays a user after a click', () => {
+test.skip('displays a user after a click', () => {
   // Set up our document body
   document.body.innerHTML =
     '<div>' +
