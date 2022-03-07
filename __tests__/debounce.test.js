@@ -1,5 +1,6 @@
 import debounce from '../src/debounce.js'
 // import debounce from '../source/debounce.js'
+import __stringify from "../src/utils/__stringify";
 import sleep from '../src/utils/sleep.js'
 import $ from 'jquery'
 test('debounce once',async () => {
@@ -8,13 +9,11 @@ test('debounce once',async () => {
         '  <span id="count">0</span>' +
         '  <button id="button" />' +
         '</div>';
-    let handler = debounce(() => { 
+    let handler = debounce((e)=>{ 
         $('#count').text(Number($('#count').text()) + 1) 
-        // console.log('参数'+JSON.stringify(Array.from(arguments)))
-    //    for(let i=0;i<arguments.length;i++){
-    //         console.log('参数'+JSON.stringify(arguments[i]),null,4)
-    //    }
-    }, 1000)
+        console.log( __stringify(e))
+        console.log( __stringify(this))
+    }, 500)
     $('#button').on('click', handler)
     for (let i = 0; i < 10; i++) {
         $('#button').click();

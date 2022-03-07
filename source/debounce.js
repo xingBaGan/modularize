@@ -78,7 +78,9 @@ function debounce(func, wait, options) {
       maxWait,
       result,
       timerId,
+      //执行闭包函数【用来控制func 是否调用的】
       lastCallTime,
+      //执行func
       lastInvokeTime = 0,
       leading = false,
       maxing = false,
@@ -91,11 +93,14 @@ function debounce(func, wait, options) {
   wait = toNumber(wait) || 0;
   if (isObject(options)) {
     leading = !!options.leading;
+    //如果存在最大时间
     maxing = 'maxWait' in options;
+    //获取最大调用时间，默认为零。 否则为undefined
     maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    //默认为尾执行
     trailing = 'trailing' in options ? !!options.trailing : trailing;
   }
-
+  // 调用函数，并且更新lastInvokeTime
   function invokeFunc(time) {
     var args = lastArgs,
         thisArg = lastThis;
@@ -126,7 +131,9 @@ function debounce(func, wait, options) {
   }
 
   function shouldInvoke(time) {
+     //如果多次点击了重新计时
     var timeSinceLastCall = time - lastCallTime,
+    // 保证maxWait 调用一次
         timeSinceLastInvoke = time - lastInvokeTime;
 
     // Either this is the first call, activity has stopped and we're at the
@@ -168,15 +175,17 @@ function debounce(func, wait, options) {
   function flush() {
     return timerId === undefined ? result : trailingEdge(now());
   }
-
+//每次触发事件调用，去判读是否调用invoker
   function debounced() {
+    //获取当前时间
     var time = now(),
         isInvoking = shouldInvoke(time);
     // 获取事件返回的参数
     lastArgs = arguments;
     lastThis = this;
     lastCallTime = time;
-
+    //符合调用条件，这里指
+    //如果使用setTimeout 实现，默认条件就是时间流逝自动执行。
     if (isInvoking) {
       if (timerId === undefined) {
         return leadingEdge(lastCallTime);
@@ -192,6 +201,7 @@ function debounce(func, wait, options) {
     }
     return result;
   }
+  //函数作为对象挂载其他方法
   debounced.cancel = cancel;
   debounced.flush = flush;
   return debounced;
